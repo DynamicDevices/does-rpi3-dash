@@ -10,3 +10,9 @@ To change the start URL change the `Dockerfile.template` line
 # Default start URL - TODO: Work out how to override this
 ENV BROWSER_URL=http://doesliverpool.com
 ```
+
+If using OpenBalena deploy with something like the following
+
+```
+balena deploy myApp --logs --source --emulated --build
+```
