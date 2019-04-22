@@ -1,7 +1,12 @@
-# Running a desktop manager with balenaCloud
+# Running Chromium in Kiosk mode with balenaCloud
 
-Example project on how to run a desktop manager with [balenaCloud](https://balena.io) to run GUI applications.
+Example project on how to run Chromium in Kiosk mode [balenaCloud](https://balena.io)
 
-![](https://raw.githubusercontent.com/balena-io-playground/x11-window-manager/master/img/dm.jpg)
+This is based on an original tutorial post at [https://www.balena.io/blog/](https://www.balena.io/blog/).
 
-Follow the complete tutorial post at [https://www.balena.io/blog/](https://www.balena.io/blog/).
+To change the start URL change the `Dockerfile.template` line
+
+```
+# Default start URL - TODO: Work out how to override this
+ENV BROWSER_URL=http://doesliverpool.com
+```

@@ -6,16 +6,26 @@ RUN install_packages xserver-xorg=1:7.7+19 \
   xinit \
   xfce4 \
   xfce4-terminal \
+  xfce4-notifyd \
   x11-xserver-utils \
   dbus-x11 \
   matchbox-keyboard \
-  xterm
-
+  xterm \
+  chromium-browser \
+  unclutter 
 
 # Disable screen from turning it off
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo "" >> /etc/X11/xinit/xserverrc \
   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc 
+
+# Default start URL - TODO: Work out how to override this
+ENV BROWSER_URL=http://doesliverpool.com
+
+# Set custom xinitrc to run browser in kiosk mode
+RUN echo "#!/bin/bash" > /etc/X11/xinit/xinitrc \
+  && echo "" >> /etc/X11/xinit/xinitrc \
+  && echo "chromium-browser --no-sandbox --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null $BROWSER_URL" >> /etc/X11/xinit/xinitrc
 
 # Setting working directory
 WORKDIR /usr/src/app
@@ -27,4 +37,4 @@ ENV UDEV=1
 # Avoid requesting XFCE4 question on X start
 ENV XFCE_PANEL_MIGRATE_DEFAULT=1
 
-CMD ["bash", "start_x86.sh"]
+CMD ["bash", "start.sh"]
